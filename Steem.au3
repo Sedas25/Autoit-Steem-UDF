@@ -1,6 +1,17 @@
 #include "JSON.au3"
+#include <Array.au3>
 Global Const $HTTP_STATUS_OK = 200
 Global $RPC = "https://api.steemit.com"
+
+$result = _Steem_Get_Active_Votes("utopian-io" , "maintenance-window-scheduled-for-february-tue-6-5-00-pm-cet")
+ConsoleWrite($result&@CRLF)
+
+$result = _Steem_Get_Content_Replies("utopian-io" , "maintenance-window-scheduled-for-february-tue-6-5-00-pm-cet")
+ConsoleWrite($result&@CRLF)
+
+$result = _Steem_Get_Content("utopian-io" , "maintenance-window-scheduled-for-february-tue-6-5-00-pm-cet")
+ConsoleWrite($result&@CRLF)
+
 
 Func _Steem_Get_Config()
 Local $Data1='{"jsonrpc": "2.0","id":7,"method":"get_config","params":[]}'
@@ -13,7 +24,7 @@ Return HttpPost($Data1)
 EndFunc
 
 Func _Steem_Get_Dynamic_Global_Properties()
-Local $Data1='{"jsonrpc": "2.0", "method": "call", "params":["database_api","get_dynamic_global_properties"]}'
+Local $Data1='{"jsonrpc": "2.0","id":7, "method": "get_dynamic_global_properties", "params":[]}'
 Return HttpPost($Data1)
 EndFunc
 
